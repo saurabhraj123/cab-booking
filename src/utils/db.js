@@ -1,6 +1,6 @@
 export const myLocations = [
     "New Delhi",
-    "Central Secretatriate",
+    "Central Secretariate",
     "Moolchand",
     "Nehru Place",
     "Mohan Estate",
@@ -10,7 +10,7 @@ export const myLocations = [
 export const distances = [
     {
         location1: "New Delhi",
-        location2: "Central Secretatriate",
+        location2: "Central Secretariate",
         dist: 5
     },
     {
@@ -19,12 +19,12 @@ export const distances = [
         dist: 7
     },
     {
-        location1: "Central Secretatriate",
+        location1: "Central Secretariate",
         location2: "Nehru Place",
         dist: 15
     },
     {
-        location1: "Central Secretatriate",
+        location1: "Central Secretariate",
         location2: "Mohan Estate",
         dist: 20
     },
@@ -86,7 +86,8 @@ export const cabs = [
 
 export function getMatrix(distances) {
     const matrix = [];
-    const locations = new Set(distances.map((d) => d.location1).concat(distances.map((d) => d.location2)));
+    // const locations = new Set(distances.map((d) => d.location1).concat(distances.map((d) => d.location2)));
+    const locations = new Set(myLocations);
     const locationArray = Array.from(locations);
     const numLocations = locations.size;
 

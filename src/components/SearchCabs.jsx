@@ -9,16 +9,16 @@ import CabCard from "./CabCard";
 
 export default function SearchCabs() {
     const [searchParams] = useSearchParams();
-    
+
     const [from, setFrom] = useState(0);
     const [to, setTo] = useState(0);
-    const[shortestDistance, setShortestDistance] = useState(0);
-    const[sortedCabs, setSortedCabs] = useState(null);
+    const [shortestDistance, setShortestDistance] = useState(0);
+    const [sortedCabs, setSortedCabs] = useState(null);
 
     useEffect(() => {
         let fromIndex = myLocations.indexOf(searchParams.get('from'));
         setFrom(fromIndex);
-        
+
         const matrix = getMatrix(distances);
         const result = dijkstra(matrix, fromIndex);
 
@@ -42,22 +42,22 @@ export default function SearchCabs() {
     return (
         <>
             {!sortedCabs && <h1 className="m-auto">Searching for cabs..</h1>}
-            {sortedCabs && 
-            <>
-                <div className="flex justify-between mx-28 mb-8">
-                    <p><span className="font-medium">SOURCE:</span> {myLocations[from].toUpperCase()}</p>
-                    <p><span className="font-medium">IDEAL TIME:</span> {shortestDistance} min</p>
-                    <p><span className="font-medium">DESTINATION:</span> {myLocations[to].toUpperCase()}</p>
-                </div>
-                <div className="flex flex-1 flex-col items-center gap-4">
-                    {
-                        sortedCabs.map(cab => {
-                            return <CabCard key={cab.id} shortestDistance={shortestDistance} cab={cab}/>
-                        })
-                    }        
-                </div>
-            </>
+            {sortedCabs &&
+                <>
+                    <div className="flex justify-between mx-28 mb-8">
+                        <p><span className="font-medium">SOURCE:</span> {myLocations[from].toUpperCase()}</p>
+                        <p><span className="font-medium">IDEAL TIME:</span> {shortestDistance} min</p>
+                        <p><span className="font-medium">DESTINATION:</span> {myLocations[to].toUpperCase()}</p>
+                    </div>
+                    <div className="flex flex-1 flex-col items-center gap-4">
+                        {
+                            sortedCabs.map(cab => {
+                                return <CabCard key={cab.id} shortestDistance={shortestDistance} source={myLocations[from]} destination={myLocations[to]} cab={cab} />
+                            })
+                        }
+                    </div>
+                </>
             }
         </>
-        );
+    );
 }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ConfirmationCard from "./ConfirmationCard";
 
-export default function CabCard({cab, shortestDistance}) {
+export default function CabCard({cab, shortestDistance, source, destination}) {
     const [confirmBookingOn, setConfirmBooking] = useState(false);
 
     function handleBooking() {
@@ -25,9 +25,9 @@ export default function CabCard({cab, shortestDistance}) {
                     <p><span className="font-medium">Estimated travel time:</span> {parseInt(cab.time_to_arrive) + parseInt(shortestDistance)} min</p>
                     <p><span className="font-medium">Estimated cost:</span> ₹{Math.round(parseFloat(shortestDistance) * parseFloat(cab.price_per_min))}</p>
                 </div>
-                <button className="bg-primary-btn rounded-md text-white h-8 px-2" onClick={handleBooking}>Book Now</button>
+                <button className="bg-primary-btn rounded-md text-white h-9 px-3 font-medium hover:bg-[#199346]" onClick={handleBooking}>Book Now</button>
 
-                {confirmBookingOn && <ConfirmationCard onCancel={onCancel}/>}
+                {confirmBookingOn && <ConfirmationCard source={source} destination={destination} cab_fare={Math.round(parseFloat(shortestDistance) * parseFloat(cab.price_per_min))} onCancel={onCancel}/>}
             </div>
         </div>
     );

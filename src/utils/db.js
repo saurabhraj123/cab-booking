@@ -1,6 +1,6 @@
 export const myLocations = [
     "New Delhi",
-    "Central Secretariate",
+    "Central Secretariat",
     "Moolchand",
     "Nehru Place",
     "Mohan Estate",
@@ -10,7 +10,7 @@ export const myLocations = [
 export const distances = [
     {
         location1: "New Delhi",
-        location2: "Central Secretariate",
+        location2: "Central Secretariat",
         dist: 5
     },
     {
@@ -19,12 +19,12 @@ export const distances = [
         dist: 7
     },
     {
-        location1: "Central Secretariate",
+        location1: "Central Secretariat",
         location2: "Nehru Place",
         dist: 15
     },
     {
-        location1: "Central Secretariate",
+        location1: "Central Secretariat",
         location2: "Mohan Estate",
         dist: 20
     },
@@ -54,42 +54,43 @@ export const cabs = [
     {
         id:1,
         name: "Sedan Cab",
-        price_per_min: 0.50, // INR 0.50 per minute
+        price_per_min: 0.50, 
         time_to_arrive: "5"
     },
     {
         id:2,
         name: "SUV Cab",
-        price_per_min: 0.60, // INR 0.60 per minute
+        price_per_min: 0.60, 
         time_to_arrive: "10"
     },
     {
         id:3,
         name: "Luxury Cab",
-        price_per_min: 1.00, // INR 1.00 per minute
+        price_per_min: 1.00, 
         time_to_arrive: "15"
     },
     {
         id:4,
         name: "Hatchback Cab",
-        price_per_min: 0.40, // INR 0.40 per minute
+        price_per_min: 0.40, 
         time_to_arrive: "7"
     },
     {
         id:5,
         name: "Mini-van Cab",
-        price_per_min: 0.75, // INR 0.75 per minute
+        price_per_min: 0.75, 
         time_to_arrive: "12"
     }
 ];
 
 
-export function getMatrix(distances) {
+export function getMatrix(locations, distances) {
     const matrix = [];
     // const locations = new Set(distances.map((d) => d.location1).concat(distances.map((d) => d.location2)));
-    const locations = new Set(myLocations);
-    const locationArray = Array.from(locations);
-    const numLocations = locations.size;
+    // const locations = new Set(locations_);
+    // const locationArray = Array.from(locations);
+    console.log('locations is:', locations);
+    const numLocations = locations.length;
 
     // Initialize the matrix with infinite distances
     for (let i = 0; i < numLocations; i++) {
@@ -99,12 +100,21 @@ export function getMatrix(distances) {
         }
     }
 
+    console.log('matrix is:', matrix);
+    console.log('fethced locations are:', locations);
+
     // Set the distances in the matrix
     distances.forEach((d) => {
-        const i = locationArray.indexOf(d.location1);
-        const j = locationArray.indexOf(d.location2);
-        matrix[i][j] = d.dist;
-        matrix[j][i] = d.dist; // assuming the distances are undirected
+        console.log('d is:', d);
+        const i = Array.from(locations).findIndex((item) => item.location === d.location1);
+        console.log('i is:', i);
+        const j = Array.from(locations).findIndex((item) => item.location === d.location2);
+        console.log('j is:', j);
+
+        if(i != -1 && j != -1) {
+            matrix[i][j] = d.dist;
+            matrix[j][i] = d.dist;
+        }
     });
 
     return matrix;

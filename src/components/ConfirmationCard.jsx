@@ -43,6 +43,7 @@ export default function ConfirmationCard({ onCancel, source, destination, cab_fa
                             name="to_name"
                             className="w-full p-2 border border-gray-300 rounded-md"
                             value={fullName}
+                            required
                             onChange={(e) => setFullName(e.target.value)}
                         />
                     </div>
@@ -56,6 +57,7 @@ export default function ConfirmationCard({ onCancel, source, destination, cab_fa
                             name="reply_to"
                             className="w-full p-2 border border-gray-300 rounded-md"
                             value={email}
+                            required
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
@@ -67,6 +69,7 @@ export default function ConfirmationCard({ onCancel, source, destination, cab_fa
                         <input type="submit" value="Confirm"
                             className="bg-green-500 text-white px-4 py-2 rounded-md mr-4 hover:cursor-pointer"
                             onClick={handleConfirm}
+                            
                         />
                         <button
                             className="bg-red-500 text-white px-4 py-2 rounded-md"

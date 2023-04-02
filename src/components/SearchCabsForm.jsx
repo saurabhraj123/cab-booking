@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { myLocations } from '../utils/db';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import SearchCabs from './SearchCabs';
 
 function SearchCabsForm() {
     const [locations, setLocations] = useState([]);
@@ -13,8 +12,22 @@ function SearchCabsForm() {
     let navigate = useNavigate();
 
     useEffect(() => {
-        setLocations(myLocations);
-    }, [myLocations]);
+
+        async function fetchLocations() {
+            try {
+                const fetched_locations = await axios.get('http://localhost:5500/api/locations');
+                console.log('locations', fetched_locations);
+                setLocations(fetched_locations.data);
+
+                console.log('new locations:', locations);
+            }catch(err) {
+                console.log('error while fetching locations', err);
+            }
+        }
+        
+        fetchLocations();
+
+    });
 
     const handleSourceChange = (e) => {
         let updatedSource = e.target.value;
@@ -27,9 +40,9 @@ function SearchCabsForm() {
         setSource(updatedSource);
         setSourceSelected(true);
 
-        const newDestinations = locations.filter(location => location != updatedSource);
+        const newDestinations = locations.filter(item => item.location != updatedSource);
         setDestinations(newDestinations);
-        setDestination(newDestinations[0]);
+        setDestination(newDestinations[0].location);
     };
 
     const handleDestinationChange = (e) => {
@@ -59,9 +72,9 @@ function SearchCabsForm() {
                         value={source}
                         onChange={handleSourceChange}
                     >
-                        <option value="">Select source</option>
-                        {locations.map(location => {
-                            return <option key={`${location}`} value={`${location}`}>{`${location}`}</option>
+                        {!sourceSelected && <option value="">Select source</option>}
+                        {locations.map(item => {
+                            return <option key={`${item._id}`} value={`${item.location}`}>{`${item.location}`}</option>
                         })}
                     </select>
                 </div>
@@ -77,7 +90,7 @@ function SearchCabsForm() {
                         disabled={!sourceSelected}
                     >
                         {destinations.map(destination => {
-                            return <option key={`${destination}`} value={`${destination}`}>{`${destination}`}</option>
+                            return <option key={`${destination._id}`} value={`${destination.location}`}>{`${destination.location}`}</option>
                         })}
                     </select>
                 </div>

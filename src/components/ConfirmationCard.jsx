@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useRef, useState } from "react";
 import emailjs from '@emailjs/browser';
 
@@ -9,12 +10,33 @@ export default function ConfirmationCard({ onCancel, source, destination, cab_fa
 
     const form = useRef();
 
+    async function addBooking() {
+        const current = form.current;
+        const name = current[0].value;
+        const email = current[1].value;
+        const source = current[2].value;
+        const destination = current[3].value;
+        const fare = current[4].value;
+
+        const booking_details = {name, email, source, destination, fare};
+
+        console.log(booking_details);
+
+        const result = await axios.post('http://localhost:5500/api/booking', booking_details);
+
+        console.log('result of post', result);
+
+    }
+
     const handleConfirm = (e) => {
         e.preventDefault();
         setError(false);
 
+        console.log('form is:', form.current[4].value);
+
         emailjs.sendForm('service_zsulqyv', 'template_7raoxuu', form.current, 'cWM6Fgb7hs57dT2NZ')
-            .then((result) => {
+            .then(async (result) => {
+                addBooking();
                 setCabBooked(true);
                 console.log(result.text);
             }, (error) => {

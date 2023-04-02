@@ -10,17 +10,9 @@ const app = express();
 //     .catch((err) => console.log('Database connection error...'));
 
 app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(express.json());
 
 const mainRouter = require('./routes/mainRouter');
-
 app.use('/api', mainRouter);
-
-app.get('/api/distances', (req, res) => {
-    res.send('hi');
-})
-
-app.get('/api/locations', (req, res) => {
-    res.send('hi');
-})
 
 app.listen(5500, console.log('Listening on port 5500'));

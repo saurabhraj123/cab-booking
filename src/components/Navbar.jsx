@@ -15,7 +15,7 @@ export default function Navbar() {
 
             <div className="flex my-2 items-center gap-6 sm:my-0">
                 <NavLink to='/track' className="mx-2">
-                    Check Status
+                    Track Booking
                 </NavLink>
                 
                 <NavLink to='/admin' className="">

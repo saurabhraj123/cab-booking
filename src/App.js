@@ -5,6 +5,8 @@ import AdminDashboard from './components/AdminDashboard';
 import Footer from "./components/Footer";
 import taxi_bg from './images/taxi_bg.jpg'
 import SearchCabs from "./components/SearchCabs";
+import TrackerForm from "./components/TrackerForm";
+import Tracker from "./components/Tracker";
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/search" element={<SearchCabs />} />
+          <Route path="/track" element={<Tracker />} />
         </Routes>
       </main>
 

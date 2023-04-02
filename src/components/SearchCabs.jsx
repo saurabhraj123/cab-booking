@@ -23,7 +23,7 @@ export default function SearchCabs() {
         setTo(searchParams.get('to'));
 
         async function fetchLocations() {
-            const result = await axios.get('http://localhost:5500/api/locations');
+            const result = await axios.get(`${process.env.BACKEND_URI}/api/locations`);
             const fetched_locations = result.data; 
             setLocations(fetched_locations);
 
@@ -46,7 +46,7 @@ export default function SearchCabs() {
         // setFrom(fromIndex);
 
         async function getDistances() {
-            const result = await axios.get('http://localhost:5500/api/distances');
+            const result = await axios.get(`${process.env.BACKEND_URI}/api/distances`);
             const distances = result.data;
 
             console.log('distances are:', distances);
@@ -69,7 +69,7 @@ export default function SearchCabs() {
         // const matrix = getMatrix(distances);
         
         async function getCabs() {
-            const result = await axios.get('http://localhost:5500/api/cabs');
+            const result = await axios.get(`${process.env.BACKEND_URI}/api/cabs`);
             const cabs = result.data;
 
             const cabs_update = cabs.sort((a, b) => {

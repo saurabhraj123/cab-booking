@@ -15,7 +15,7 @@ function SearchCabsForm() {
 
         async function fetchLocations() {
             try {
-                const fetched_locations = await axios.get('http://localhost:5500/api/locations');
+                const fetched_locations = await axios.get(`${process.env.BACKEND_URI}/api/locations`);
                 console.log('locations', fetched_locations);
                 setLocations(fetched_locations.data);
 

@@ -23,7 +23,7 @@ export default function CardDetailsAdmin({ cabId, name, price_per_min, time_to_a
         e.preventDefault();
         
         async function update() {
-            const result = await axios.post('http://localhost:5500/api/cabs', {cabId, cabName, pricePerMin, timeToArrive: timeToArrive});
+            const result = await axios.post(`${process.env.BACKEND_URI}/api/cabs`, {cabId, cabName, pricePerMin, timeToArrive: timeToArrive});
 
             console.log('update is successful', result);
         }

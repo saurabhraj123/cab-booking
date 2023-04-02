@@ -22,7 +22,7 @@ export default function ConfirmationCard({ onCancel, source, destination, cab_fa
 
         console.log(booking_details);
 
-        const result = await axios.post('http://localhost:5500/api/booking', booking_details);
+        const result = await axios.post(`${process.env.BACKEND_URI}/api/booking`, booking_details);
 
         console.log('result of post', result);
 

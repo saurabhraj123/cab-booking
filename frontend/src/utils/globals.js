@@ -5,7 +5,7 @@
 
 
 // Mehran 
-export const BACKEND_URI="https://mehran-booking-api.com";
+export const BACKEND_URI="https://mehran-booking-api.onrender.com";
 export const EMAILJS_SERVICE_ID="service_m168mdq";
 export const EMAILJS_TEMPLATE_ID="template_15em2r4";
 export const EMAILJS_PUBLIC_KEY="1BeXJJv8dy4YduZmj";

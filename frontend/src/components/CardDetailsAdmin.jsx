@@ -42,18 +42,18 @@ export default function CardDetailsAdmin({ cabId, name, price_per_min, time_to_a
     }
 
     return (
-        <div className="bg-[#fde68a] rounded-lg p-4 flex flex-col w-[25%]  justify-between">
+        <div className="flex-1 min-w-[300px] bg-[#fde68a] rounded-lg p-4 flex flex-col w-[25%]  justify-between">
             <div className="flex justify-between flex-1">
-                <h2 className="text-white font-bold text-gray-800 text-xl">{name}</h2>
-                <p className="text-white text-gray-800">₹{price_per_min}/min</p>
+                <h2 className="font-bold text-gray-800 text-xl">{name}</h2>
+                <p className="text-gray-800">₹{price_per_min}/min</p>
             </div>
             <div className="flex justify-between text-gray-800 items-end mt-8 flex-1">
-                <p className="text-white font-medium text-gray-800">Time to arrive: {time_to_arrive}</p>
+                <p className="font-medium text-gray-800">Time to arrive: {time_to_arrive}</p>
                 <button className="ml-4 bg-white text-[#9B7F11] hover:bg-white/70 rounded-lg px-4 py-2 font-bold" onClick={handleEdit}>Edit</button>
             </div>
 
             {showEditPopup &&
-                <div className='absolute top-0 bottom-0 left-0 right-0 bg-black/40 flex justify-center items-center'>
+                <div className='fixed top-0 bottom-0 left-0 right-0 bg-black/40 flex justify-center items-center'>
                     <div className='flex bg-white rounded-lg drop-shadow-lg'>
                         <form className="p-4">
                             <div className="mb-4">

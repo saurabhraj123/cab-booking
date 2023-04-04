@@ -27,7 +27,7 @@ export default function AdminDashboard() {
             {loading && <p className="font-medium text-xl">Loading...</p>}
             {!loading && cabs.lenght === 0 && <p className="font-medium text-xl">No results found...</p>}
             {!loading && cabs.length > 0 && 
-                <div className="flex flex-wrap justify-center gap-4">
+                <div className="flex flex-wrap justify-center gap-4 md:max-w-[700px]">
                     {
                         cabs.map(cab => {
                             return <CardDetailsAdmin key={cab._id} name={cab.name} cabId={cab._id} price_per_min={cab.price_per_min} time_to_arrive={cab.time_to_arrive}/>

@@ -28,7 +28,7 @@ export default function TrackerForm({email, setEmail, setShowBookings, setBookin
 
     return (
         <>
-            <div className="flex justify-center items-center min-h-[190px] shadow-lg w-[20%] bg-[#fde68a] rounded-lg p-4">
+            <div className="flex w-full max-w-[315px] justify-center items-center min-h-[190px] shadow-lg w-[20%] bg-[#fde68a] rounded-lg p-4">
                 <form onSubmit={handleSubmit} className="flex flex-1 flex-col">
                     <h2 className="text-2xl font-bold mb-2">Track Your Booking</h2>
                     {/* <label htmlFor="email" className="font-medium">Enter your email:</label> */}

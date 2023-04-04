@@ -29,20 +29,20 @@ export default function Tracker() {
         <div className="flex flex-col justify-center items-center">
             <TrackerForm email={email} setEmail={handleSetEmail} setLoading={handleLoading} setBookings={handleBookings} setShowBookings={handleShowBookings} />
 
-            <div className='flex justify-center items-center mt-10'>
+            <div className='flex max-w-[1000px] justify-center items-center mt-10'>
                 {loading && <p className='text-lg'>Loading booking details...</p>}
                 {!loading && showBookings &&
-                    <div className="flex flex-col gap-2 items-center">
+                    <div className="flex flex-col w-full gap-2 items-center">
                         {bookings.length === 0 && <p className='text-lg text-red-500'>No results found...</p>}
                         {bookings.length > 0 &&
-                            <>
+                            <div className="flex flex-col w-full items-center gap-3">
                                 <h2 className='text-xl font-medium'>Booking Details</h2>
-                                <div className="flex flex-wrap gap-4">
+                                <div className="flex w-full flex-wrap gap-4 justify-center">
                                     {bookings.map(booking => {
                                         return <DetailsCard key={booking._id} name={booking.name} source={booking.source} destination={booking.destination} fare={booking.fare} />
                                     })}
                                 </div>
-                            </>}
+                            </div>}
 
                     </div>
                 }

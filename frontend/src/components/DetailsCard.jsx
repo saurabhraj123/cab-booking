@@ -2,16 +2,18 @@ import React from 'react';
 
 export default function DetailsCard({ name, email, source, destination, fare }) {
   return (
-    <div className="bg-gray-200 text-gray-800 rounded-lg shadow-lg p-6">
+    <div className="flex-1 bg-[#fde68a] rounded-lg shadow-lg p-6">
       <div className="flex justify-between">
-        <div className="text-xl font-medium">{source} --</div>
-        <div className="text-xl font-medium"> &nbsp;{destination}</div>
+        <div className="md:text-xl text-red-700 font-medium">{source.toUpperCase()} </div> 
+        <span className='md:text-xl text-red-700'>&nbsp;-&nbsp;</span>
+        <div className="md:text-xl text-right text-red-700 font-medium"> &nbsp;{destination.toUpperCase()}</div>
       </div>
+
       <div className="flex justify-center my-6">
-        <div className="text-2xl font-bold">{name}</div>
+        <div className="text-xl md:text-2xl font-bold underline text-[#03345E]">{name}</div>
       </div>
       <div className="flex justify-center mb-4">
-        <div className="text-xl font-medium">₹{fare}</div>
+        <div className="md:text-xl font-medium text-[#03345E]">₹{fare}</div>
       </div>
     </div>
   );

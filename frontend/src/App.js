@@ -8,12 +8,13 @@ import SearchCabs from "./components/SearchCabs";
 import TrackerForm from "./components/TrackerForm";
 import Tracker from "./components/Tracker";
 
+
 function App() {
   return (
     <div className="flex flex-col bg-white min-h-screen ">
       <Navbar />
 
-      <main className="flex flex-col p-4" >
+      <main className="flex flex-col p-4 flex-1" >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<AdminDashboard />} />

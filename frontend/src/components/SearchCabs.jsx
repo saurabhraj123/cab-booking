@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { dijkstra } from "../utils/ds";
 import { getMatrix } from "../utils/db";
 import CabCard from "./CabCard";
+import { BACKEND_URI } from '../utils/globals'
 
 
 export default function SearchCabs() {
@@ -23,7 +24,7 @@ export default function SearchCabs() {
         setTo(searchParams.get('to'));
 
         async function fetchLocations() {
-            const result = await axios.get(`${process.env.BACKEND_URI}/api/locations`);
+            const result = await axios.get(`${BACKEND_URI}/api/locations`);
             const fetched_locations = result.data; 
             setLocations(fetched_locations);
 
@@ -46,7 +47,7 @@ export default function SearchCabs() {
         // setFrom(fromIndex);
 
         async function getDistances() {
-            const result = await axios.get(`${process.env.BACKEND_URI}/api/distances`);
+            const result = await axios.get(`${BACKEND_URI}/api/distances`);
             const distances = result.data;
 
             console.log('distances are:', distances);
@@ -69,7 +70,7 @@ export default function SearchCabs() {
         // const matrix = getMatrix(distances);
         
         async function getCabs() {
-            const result = await axios.get(`${process.env.BACKEND_URI}/api/cabs`);
+            const result = await axios.get(`${BACKEND_URI}/api/cabs`);
             const cabs = result.data;
 
             const cabs_update = cabs.sort((a, b) => {

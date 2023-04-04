@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useRef, useState } from "react";
 import emailjs from '@emailjs/browser';
+import { BACKEND_URI, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY } from '../utils/globals'
 
 export default function ConfirmationCard({ onCancel, source, destination, cab_fare }) {
     const [fullName, setFullName] = useState("");
@@ -22,7 +23,7 @@ export default function ConfirmationCard({ onCancel, source, destination, cab_fa
 
         console.log(booking_details);
 
-        const result = await axios.post(`${process.env.BACKEND_URI}/api/booking`, booking_details);
+        const result = await axios.post(`${BACKEND_URI}/api/booking`, booking_details);
 
         console.log('result of post', result);
 
@@ -34,7 +35,7 @@ export default function ConfirmationCard({ onCancel, source, destination, cab_fa
 
         console.log('form is:', form.current[4].value);
 
-        emailjs.sendForm('service_zsulqyv', 'template_7raoxuu', form.current, 'cWM6Fgb7hs57dT2NZ')
+        emailjs.sendForm(`${EMAILJS_SERVICE_ID}`, `${EMAILJS_TEMPLATE_ID}`, form.current, `${EMAILJS_PUBLIC_KEY}`)
             .then(async (result) => {
                 addBooking();
                 setCabBooked(true);

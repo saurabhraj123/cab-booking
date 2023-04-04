@@ -1,6 +1,7 @@
+import axios from 'axios';
 import { useEffect, useState } from "react";
 import CardDetailsAdmin from './CardDetailsAdmin';
-import axios from 'axios';
+import { BACKEND_URI } from '../utils/globals'
 
 export default function AdminDashboard() {
     const [cabs, setCabs] = useState([]);
@@ -8,7 +9,7 @@ export default function AdminDashboard() {
 
     useEffect(() => {
         async function getCabs() {
-            const result = await axios.get(`${process.env.BACKEND_URI}/api/cabs`);
+            const result = await axios.get(`${BACKEND_URI}/api/cabs`);
             const data = result.data;
 
             console.log('data is', data);

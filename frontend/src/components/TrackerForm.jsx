@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { BACKEND_URI } from '../utils/globals'
 
 export default function TrackerForm({email, setEmail, setShowBookings, setBookings, setLoading}) {
 
     const fetchBookings = async (email) => {
         try {
             console.log('I am here->email is', email);
-            const result = await axios.get(`${process.env.BACKEND_URI}/api/bookings`, { params: {email} });
+            const result = await axios.get(`${BACKEND_URI}/api/bookings`, { params: {email} });
             console.log('I am here 2');
             setBookings(result.data);
             setShowBookings(true);

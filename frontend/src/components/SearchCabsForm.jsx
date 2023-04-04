@@ -63,7 +63,7 @@ function SearchCabsForm() {
 
     return (
         <>
-            {loading && <p className='text-lg font-medium'>Loading...</p>}
+            {loading && <p className='text-lg'>Loading...</p>}
 
             {!loading &&
                 <div className="flex flex-col justify-center w-full max-w-[470px] bg-amber-200 p-4">

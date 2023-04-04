@@ -52,8 +52,8 @@ export default function ConfirmationCard({ onCancel, source, destination, cab_fa
     };
 
     return (
-        <div className="absolute bg-black/30 top-0 bottom-0 left-0 right-0 flex justify-center items-center">
-            <form ref={form} className="w-[30%] bg-white rounded-lg drop-shadow-xl p-8">
+        <div className="flex fixed justify-center items-center top-0 bottom-0 left-0 right-0 bg-black/30">
+            <form ref={form} className="flex-1 max-w-[350px] mx-10 bg-white rounded-lg drop-shadow-xl p-8">
                 {!cabBooked && <>
                     <h1 className="text-lg font-medium mb-4">Confirm your booking!</h1>
                     <div className="mb-4">

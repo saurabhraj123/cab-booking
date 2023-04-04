@@ -73,11 +73,11 @@ async function editCab(updated_cab) {
     const cab = await Cabs.findById(id);
     if(!cab) return;
 
-    console.log('old cab is"', cab);
-    console.log('cab to updaate is:', updated_cab);
+    // console.log('old cab is"', cab);
+    // console.log('cab to updaate is:', updated_cab);
 
-    console.log('time to arrive ka dikkat is:', updated_cab.timeToArrive)
-    console.log('type is', typeof(updated_cab.timeToArrive));
+    // console.log('time to arrive ka dikkat is:', updated_cab.timeToArrive)
+    // console.log('type is', typeof(updated_cab.timeToArrive));
 
     cab.time_to_arrive = updated_cab.timeToArrive;
     cab.name           = updated_cab.cabName;

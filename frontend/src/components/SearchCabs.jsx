@@ -11,100 +11,83 @@ export default function SearchCabs() {
     const [searchParams] = useSearchParams();
 
     const [locations, setLocations] = useState([]);
-    const [fromIndex, setFromIndex] = useState(0);
-    const [toIndex, setToIndex] = useState(0);
+    const [loading, setLoading] = useState(true);
     const [from, setFrom] = useState(0);
     const [to, setTo] = useState(0);
     const [shortestDistance, setShortestDistance] = useState(0);
     const [sortedCabs, setSortedCabs] = useState(null);
-    const [matrix, setMatrix] = useState([]);
+
+    async function fetchLocations() {
+        const result = await axios.get(`${BACKEND_URI}/api/locations`);
+        const fetched_locations = result.data;
+        
+        setLocations(result.data);
+        return fetched_locations;
+    }
+
+    async function getDistances() {
+        const result = await axios.get(`${BACKEND_URI}/api/distances`);
+        const distances = result.data;
+
+        const locations = await fetchLocations();
+
+        const from = searchParams.get('from');
+        setFrom(from);
+
+        const to = searchParams.get('to');
+        setTo(to);
+
+        const from_index = locations.findIndex(item => item.location === from);
+        const to_index = locations.findIndex(item => item.location === to);
+
+        console.log('from_index:', from_index)
+        
+        const _matrix = getMatrix(locations, distances);
+        const distance_output = dijkstra(_matrix, from_index);
+
+        console.log('distance output is:,', distance_output, 'from is', from_index);
+        const shortest_distance = distance_output[to_index];
+
+        console.log('shortest distance is:', shortest_distance);
+        setShortestDistance(shortest_distance);
+        setLoading(false);
+    }
+
+    async function getCabs() {
+        const result = await axios.get(`${BACKEND_URI}/api/cabs`);
+        const cabs = result.data;
+
+        const cabs_update = cabs.sort((a, b) => {
+            return parseInt(a.time_to_arrive) - parseInt(b.time_to_arrive);
+        });
+
+        setSortedCabs(cabs_update);
+    }
 
     useEffect(() => {
-        setFrom(searchParams.get('from'));
-        setTo(searchParams.get('to'));
-
-        async function fetchLocations() {
-            const result = await axios.get(`${BACKEND_URI}/api/locations`);
-            const fetched_locations = result.data; 
-            setLocations(fetched_locations);
-
-            console.log('fethced locations are:', locations);
-
-            const from_index = fetched_locations.findIndex(item => item.location === from);
-            setFromIndex(from_index);
-
-            console.log('from index is:', fromIndex);
-
-            const to_index = fetched_locations.findIndex(item => item.location === to);
-            setToIndex(to_index);
-
-            console.log('to index is:', toIndex);
-        }
-
-        fetchLocations();
-
-        // let fromIndex = myLocations.indexOf(searchParams.get('from'));
-        // setFrom(fromIndex);
-
-        async function getDistances() {
-            const result = await axios.get(`${BACKEND_URI}/api/distances`);
-            const distances = result.data;
-
-            console.log('distances are:', distances);
-
-            const _matrix = getMatrix(locations, distances);
-            setMatrix(_matrix);
-
-            console.log(fromIndex);
-
-            const distance_output = dijkstra(matrix, fromIndex);
-            console.log('distance output is:', distance_output);
-            const shortest_distance = distance_output[toIndex];
-
-            console.log('shortest distance is:', shortestDistance);
-            setShortestDistance(shortest_distance);
-        }
-
         getDistances();
-
-        // const matrix = getMatrix(distances);
-        
-        async function getCabs() {
-            const result = await axios.get(`${BACKEND_URI}/api/cabs`);
-            const cabs = result.data;
-
-            const cabs_update = cabs.sort((a, b) => {
-                return parseInt(a.time_to_arrive) - parseInt(b.time_to_arrive);
-            });
-    
-            setSortedCabs(cabs_update);
-        }
-
         getCabs();
-        console.log('cabs are:', sortedCabs);
-
-    }, [sortedCabs]);
-
-    console.log('from', searchParams.get('from'));
+    }, [loading]);
 
     return (
         <>
-            {!sortedCabs && <h1 className="m-auto">Searching for cabs..</h1>}
-            {sortedCabs &&
-                <>
-                    <div className="flex justify-between mx-28 mb-8">
+            {loading && <h1 className="m-auto">Searching for cabs..</h1>}
+            {!loading &&
+                <div className="flex flex-col items-center">
+                    <div className="mb-4 md:flex md:w-full md:justify-between md:max-w-[85%]">
                         <p><span className="font-medium">SOURCE:</span> {from.toUpperCase()}</p>
                         <p><span className="font-medium">IDEAL TIME:</span> {shortestDistance} min</p>
                         <p><span className="font-medium">DESTINATION:</span> {to.toUpperCase()}</p>
                     </div>
-                    <div className="flex flex-1 flex-col items-center gap-4">
+                    
+                    <div className="flex flex-col w-full justify-center gap-3 md:max-w-[85%] md:flex-row md:flex-wrap md:justify-start">
                         {
                             sortedCabs.map(cab => {
-                                return <CabCard key={cab.id} shortestDistance={shortestDistance} source={from} destination={to} cab={cab} />
+                                return <CabCard key={cab._id} shortestDistance={shortestDistance} source={from} destination={to} cab={cab} />
                             })
                         }
                     </div>
-                </>
+                </div>
             }
         </>
     );

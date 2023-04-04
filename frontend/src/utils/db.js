@@ -101,15 +101,14 @@ export function getMatrix(locations, distances) {
     }
 
     console.log('matrix is:', matrix);
-    console.log('fethced locations are:', locations);
 
     // Set the distances in the matrix
     distances.forEach((d) => {
-        console.log('d is:', d);
+        // console.log('d is:', d);
         const i = Array.from(locations).findIndex((item) => item.location === d.location1);
-        console.log('i is:', i);
+        // console.log('i is:', i);
         const j = Array.from(locations).findIndex((item) => item.location === d.location2);
-        console.log('j is:', j);
+        // console.log('j is:', j);
 
         if(i != -1 && j != -1) {
             matrix[i][j] = d.dist;
